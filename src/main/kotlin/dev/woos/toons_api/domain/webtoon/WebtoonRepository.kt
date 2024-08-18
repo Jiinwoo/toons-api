@@ -7,5 +7,5 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import reactor.core.publisher.Flux
 
 interface WebtoonRepository: CoroutineCrudRepository<Webtoon, Long>, CustomWebtoonRepository {
-    suspend fun findAllBy(pageable: Pageable): Flow<Webtoon>
+    suspend fun findAllByIdIn(ids: List<Long>): Flow<Webtoon>
 }

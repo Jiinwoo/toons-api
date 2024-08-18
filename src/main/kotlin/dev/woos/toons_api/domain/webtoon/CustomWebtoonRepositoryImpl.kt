@@ -1,12 +1,14 @@
 package dev.woos.toons_api.domain.webtoon
 
-import dev.woos.toons_api.domain.common.Platform
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.reactive.asFlow
 import kotlinx.coroutines.reactor.awaitSingle
+import org.springframework.data.domain.Pageable
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
+import org.springframework.data.relational.core.query.Criteria
+import org.springframework.data.relational.core.query.Query
 import org.springframework.stereotype.Component
-import reactor.core.publisher.Flux
 import reactor.kotlin.core.publisher.toFlux
-import java.time.DayOfWeek
 
 @Component
 class CustomWebtoonRepositoryImpl(
@@ -46,6 +48,46 @@ class CustomWebtoonRepositoryImpl(
                     }
                 }
         }.collectList().awaitSingle()
-
     }
+
+    override suspend fun findAllWithFilters(
+        pageable: Pageable,
+        title: String?,
+        days: List<String>?,
+        platforms: List<String>?
+    ): Flow<Webtoon> {
+        val query = Query.query(createCriteria(title, days, platforms))
+            .with(pageable)
+
+        return template.select(query, Webtoon::class.java).asFlow()
+    }
+
+    override suspend fun countWithFilters(
+        title: String?,
+        days: List<String>?,
+        platforms: List<String>?
+    ): Long {
+        val query = Query.query(createCriteria(title, days, platforms))
+        return template.count(query, Webtoon::class.java).awaitSingle()
+    }
+
+    private suspend fun createCriteria(
+        title: String?,
+        days: List<String>?,
+        platforms: List<String>?
+    ): Criteria {
+        var criteria = Criteria.empty()
+        if (!title.isNullOrEmpty()) {
+            title.let { criteria = criteria.and("title").like("%$title%") }
+        }
+        if (!days.isNullOrEmpty()) {
+            days.let { criteria = criteria.and("day_of_week").`in`(it) }
+        }
+        if (!platforms.isNullOrEmpty()) {
+            platforms.let { criteria = criteria.and("platform").`in`(it) }
+        }
+
+        return criteria
+    }
+
 }

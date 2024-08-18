@@ -25,4 +25,8 @@ class MemberService(
                 )
             )
     }
+
+    suspend fun getMe(username: String): Member {
+        return memberRepository.findById(username.toLong()) ?: throw Exception("Not Found")
+    }
 }

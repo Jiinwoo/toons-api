@@ -1,9 +1,9 @@
 package dev.woos.toons_api.config.security
 
+import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.util.*
 
@@ -25,12 +25,11 @@ class JwtTokenProvider(
             .compact()
     }
 
-    fun getSubjectFrom(token: String): Long {
+    fun getClaims(token: String): Claims {
         return Jwts.parser()
             .verifyWith(signedKey)
             .build()
             .parseSignedClaims(token)
             .payload
-            .subject.toLong()
     }
 }

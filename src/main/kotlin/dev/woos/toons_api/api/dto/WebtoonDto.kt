@@ -9,4 +9,5 @@ data class WebtoonDto (
     val thumbnailUrl: String,
     val platform: Platform,
     val dayOfWeek: DayOfWeek,
+    val link: String
 )
