@@ -8,7 +8,6 @@ import java.time.LocalDateTime
 abstract class BaseEntity {
     @Id
     var id: Long = 0
-        protected set
 
     @CreatedDate
     lateinit var createdAt: LocalDateTime

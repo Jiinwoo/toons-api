@@ -6,6 +6,8 @@ import dev.woos.toons_api.domain.webtoon.WebtoonRepository
 import io.github.oshai.kotlinlogging.KotlinLogging
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.forEach
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
@@ -29,7 +31,11 @@ class WebtoonService(
     suspend fun crawlerCompletedNAVER() {
         val crawlerResult = webtoonCrawler.getNaverCompletedWebtoonTitles().getOrThrow()
         logger.info { "crawlerResult : ${crawlerResult}" }
-
+        val platformIds = crawlerResult.map { it.first }
+        webtoonRepository.findAllByIdIn(platformIds).map {
+            it.isCompleted()
+            it
+        }.also { webtoonRepository.saveAll(it) }
     }
 
     suspend fun crawlerKAKAO() = coroutineScope {
@@ -43,8 +49,14 @@ class WebtoonService(
     suspend fun crawlerCompletedKAKAO() {
         val crawlerResult = webtoonCrawler.getKakaoCompletedWebtoonTitles().getOrThrow()
         logger.info { "crawlerResult : ${crawlerResult}" }
+        val platformIds = crawlerResult.map { it.first }
+        webtoonRepository.findAllByIdIn(platformIds).map {
+            it.isCompleted()
+            it
+        }.also { webtoonRepository.saveAll(it) }
     }
 
+    @Transactional(readOnly = true)
     suspend fun findAllWithFilters(
         pageable: Pageable, title: String?, days: List<String>?, platforms: List<String>?
     ): Page<WebtoonDto> = coroutineScope {

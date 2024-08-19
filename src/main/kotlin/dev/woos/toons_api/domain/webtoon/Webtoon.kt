@@ -2,13 +2,9 @@ package dev.woos.toons_api.domain.webtoon
 
 import dev.woos.toons_api.domain.common.BaseEntity
 import dev.woos.toons_api.domain.common.Platform
-import org.springframework.data.annotation.CreatedDate
-import org.springframework.data.annotation.Id
-import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table
 import java.time.DayOfWeek
-import java.time.LocalDateTime
 
 
 @Table("tb_webtoon")
@@ -25,4 +21,12 @@ class Webtoon(
     val platform: Platform,
     @Column
     val platformId: Long,
-) : BaseEntity()
+) : BaseEntity() {
+    @Column
+    var completed: Boolean = false
+
+    fun isCompleted(): Boolean {
+        completed = true
+        return this.completed
+    }
+}

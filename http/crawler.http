@@ -1,0 +1,13 @@
+POST http://localhost:8080/api/webtoons/naver
+
+###
+POST http://localhost:8080/api/webtoons/naver-complete
+
+###
+POST http://localhost:8080/api/webtoons/kakao
+
+###
+POST http://localhost:8080/api/webtoons/kakao-complete
+
+###
+GET http://localhost:8080/api/home

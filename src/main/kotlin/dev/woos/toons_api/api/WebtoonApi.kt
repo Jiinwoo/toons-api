@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/webtoons")
 class WebtoonApi(
     private val webtoonService: WebtoonService,
-    private val webtoonRepository: WebtoonRepository,
 ) {
 
     @GetMapping
@@ -44,29 +43,4 @@ class WebtoonApi(
     suspend fun getCompletedKakaoWebtoons() {
         return webtoonService.crawlerCompletedKAKAO()
     }
-
-//    @PostMapping
-//    suspend fun createWebtoon(): Long {
-//        return webtoonRepository.save(
-//            Webtoon(
-//                name = "Toons",
-//            )
-//        ).id
-//    }
-//
-//    @PutMapping("/{id}")
-//    suspend fun updateWebtoon(
-//        @PathVariable id: Long
-//    ): Long {
-//        val a = webtoonRepository.findById(id) ?: throw Exception("Not Found")
-//        a.name = "Toons22"
-//        webtoonRepository.save(
-//            a
-//        )
-//
-//
-//
-//        return 1
-//    }
-
 }
