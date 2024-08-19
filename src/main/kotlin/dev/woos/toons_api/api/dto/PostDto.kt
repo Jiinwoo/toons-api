@@ -9,6 +9,7 @@ data class PostDto(
     val content: String,
     val username: String,
     val tag: String?,
+    val isLiked: Boolean? = null,
     val createdAt: LocalDateTime,
     val updatedAt: LocalDateTime,
 )

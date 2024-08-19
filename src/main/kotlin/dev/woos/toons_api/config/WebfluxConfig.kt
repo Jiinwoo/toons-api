@@ -23,7 +23,7 @@ class WebfluxConfig : WebFluxConfigurer {
     fun objectMapper(): ObjectMapper {
         return Jackson2ObjectMapperBuilder.json()
             .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-            .serializationInclusion(JsonInclude.Include.NON_NULL)
+//            .serializationInclusion(JsonInclude.Include.NON_NULL)
             .modulesToInstall(KotlinModule.Builder().enable(KotlinFeature.NullIsSameAsDefault).build())
             .build()
     }

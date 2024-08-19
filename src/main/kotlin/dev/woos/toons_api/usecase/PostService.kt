@@ -97,6 +97,26 @@ class PostService(
         )
     }
 
+    @Transactional(readOnly = true)
+    suspend fun getWithLike(postId: Long, username: String): PostDto {
+        val post = postRepository.findByIdAndDeletedAtIsNull(postId) ?: throw IllegalArgumentException("Post not found")
+        val author = memberRepository.findById(post.memberId) ?: throw IllegalArgumentException("Member not found")
+        post.member = author
+        val postLike = postLikeRepository.findByPostIdAndMemberId(post.id, username.toLong())
+
+        return PostDto(
+            id = post.id,
+            title = post.title,
+            content = post.content,
+            username = post.member.name,
+            tag = post.tag,
+            isLiked = postLike != null,
+            createdAt = post.createdAt,
+            updatedAt = post.updatedAt,
+        )
+
+    }
+
     @Transactional
     suspend fun delete(userDetails: UserDetails, postId: Long) {
         val post = postRepository.findById(postId) ?: throw IllegalArgumentException("Post not found")
@@ -149,4 +169,6 @@ class PostService(
         postRepository.save(post)
         postLikeRepository.deleteByPostIdAndMemberId(postId, username.toLong())
     }
+
+
 }

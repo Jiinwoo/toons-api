@@ -35,9 +35,15 @@ class PostApi(
 
     @GetMapping("/{id}")
     suspend fun getPost(
+        @AuthenticationPrincipal userDetails: UserDetails?,
         @PathVariable("id") postId: Long,
     ): PostDto {
-        return postService.get(postId)
+        return if (userDetails == null) {
+            postService.get(postId)
+        }else {
+            postService.getWithLike(postId, userDetails.username)
+        }
+
     }
 
     @PostMapping
@@ -57,13 +63,14 @@ class PostApi(
         postService.like(userDetails.username, postId)
     }
 
-    @PostMapping("/{id}/unlike")
+    @DeleteMapping("/{id}/like")
     suspend fun unlikePost(
         @AuthenticationPrincipal userDetails: UserDetails,
         @PathVariable("id") postId: Long,
     ) {
         postService.unlike(userDetails.username, postId)
     }
+
 
     @PutMapping("/{id}")
     suspend fun updatePost(
