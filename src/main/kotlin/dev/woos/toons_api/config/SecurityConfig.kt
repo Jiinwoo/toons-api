@@ -1,5 +1,6 @@
 package dev.woos.toons_api.config
 
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -19,7 +20,9 @@ import java.util.*
 
 @Configuration
 @EnableWebFluxSecurity
-class SecurityConfig {
+class SecurityConfig(
+    @Value("\${cors.allowed-origins}") private val allowedOrigins: List<String>
+) {
 
     @Bean
     fun securityFilterChain(
@@ -32,7 +35,7 @@ class SecurityConfig {
         webFilter.setServerAuthenticationConverter(authenticationConverter)
 
         http
-            .cors { }
+            .cors {}
             .csrf { it.disable() }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
@@ -45,6 +48,7 @@ class SecurityConfig {
                     .pathMatchers("/api/auth/**").permitAll()
                     .anyExchange().authenticated()
             }
+            .addFilterAt(corsWebFilter(), SecurityWebFiltersOrder.CORS)
             .addFilterAt(webFilter, SecurityWebFiltersOrder.AUTHENTICATION)
 
 
@@ -54,8 +58,10 @@ class SecurityConfig {
     @Bean
     fun corsWebFilter(): CorsWebFilter {
         val corsConfig = CorsConfiguration()
-        corsConfig.allowedOrigins = listOf("https://toons.woos.dev") // 허용할 오리진 설정
+
+        corsConfig.allowedOrigins = allowedOrigins // 허용할 오리진 설정
         corsConfig.maxAge = 8000L
+        corsConfig.allowCredentials = true // 쿠키 허용
         corsConfig.addAllowedMethod("*") // 모든 HTTP 메서드 허용
         corsConfig.addAllowedHeader("*") // 모든 헤더 허용
 

@@ -31,16 +31,16 @@ class QuartzConfig {
             .forJob(crawlerJobDetail())
             .withIdentity("CrawlerJobTrigger")
             .withDescription("CrawlerJobTrigger")
-            .withSchedule(
-                SimpleScheduleBuilder.simpleSchedule()
-                    .withRepeatCount(0)
-                    .withIntervalInSeconds(10)
-            )
 //            .withSchedule(
-//                CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(
-//                    java.util.TimeZone.getTimeZone("Asia/Seoul")
-//                )
+//                SimpleScheduleBuilder.simpleSchedule()
+//                    .withRepeatCount(0)
+//                    .withIntervalInSeconds(10)
 //            )
+            .withSchedule(
+                CronScheduleBuilder.cronSchedule("0 0 0 * * ?").inTimeZone(
+                    java.util.TimeZone.getTimeZone("Asia/Seoul")
+                )
+            )
             .build()
     }
 }
