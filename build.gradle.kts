@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.spring") version "1.9.24"
     id("org.springframework.boot") version "3.3.2"
     id("io.spring.dependency-management") version "1.1.6"
+    id("com.google.cloud.tools.jib") version "3.4.3"
 }
 
 group = "dev.woos"
@@ -29,6 +30,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-mail")
+    implementation("org.springframework.boot:spring-boot-starter-quartz")
 
     // Mariadb
     runtimeOnly("org.mariadb:r2dbc-mariadb")
@@ -63,4 +66,22 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+jib {
+    from {
+        image = "openjdk:17-jdk-slim"
+    }
+    to {
+        image = "jwjung5038/toons-api"
+        tags = setOf("latest", "${project.version}")
+    }
+    container {
+        jvmFlags = listOf("-Xms512m", "-Xmx512m")
+        ports = listOf("8080")
+        environment = mapOf(
+            "SPRING_OUTPUT_ANSI_ENABLED" to "ALWAYS"
+        )
+        creationTime = "USE_CURRENT_TIMESTAMP"
+    }
 }

@@ -4,17 +4,18 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.ReactiveAuthenticationManager
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity
-import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder
 import org.springframework.security.config.web.server.ServerHttpSecurity
-import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.server.SecurityWebFilterChain
 import org.springframework.security.web.server.authentication.AuthenticationWebFilter
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.reactive.CorsWebFilter
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
+import java.util.*
+
 
 @Configuration
 @EnableWebFluxSecurity
@@ -31,6 +32,7 @@ class SecurityConfig {
         webFilter.setServerAuthenticationConverter(authenticationConverter)
 
         http
+            .cors { }
             .csrf { it.disable() }
             .formLogin { it.disable() }
             .httpBasic { it.disable() }
@@ -47,5 +49,19 @@ class SecurityConfig {
 
 
         return http.build()
+    }
+
+    @Bean
+    fun corsWebFilter(): CorsWebFilter {
+        val corsConfig = CorsConfiguration()
+        corsConfig.allowedOrigins = listOf("https://toons.woos.dev") // 허용할 오리진 설정
+        corsConfig.maxAge = 8000L
+        corsConfig.addAllowedMethod("*") // 모든 HTTP 메서드 허용
+        corsConfig.addAllowedHeader("*") // 모든 헤더 허용
+
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", corsConfig) // 모든 경로에 CORS 설정 적용
+
+        return CorsWebFilter(source)
     }
 }

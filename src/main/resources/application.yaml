@@ -1,4 +1,9 @@
 spring:
+  datasource:
+    url: ${JDBC_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
   config:
     import: optional:file:.env[.properties]
   application:
@@ -8,8 +13,16 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   flyway:
-    url: ${FLYWAY_URL}
+    url: ${JDBC_URL}
     locations: classpath:db/migration
+  quartz:
+    job-store-type: jdbc
+    properties:
+      org.quartz.scheduler.instanceName: MyScheduler
+      org.quartz.threadPool.threadCount: 3
+    jdbc:
+      initialize-schema: never
+
 
 google:
   client_id: ${GOOGLE_CLIENT_ID}

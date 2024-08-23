@@ -23,24 +23,4 @@ class WebtoonApi(
     ): Page<WebtoonDto> {
         return webtoonService.findAllWithFilters(pageable, title, days, platforms)
     }
-
-    @PostMapping("/naver")
-    suspend fun getNaverWebtoons() {
-        return webtoonService.crawlerNAVER()
-    }
-
-    @PostMapping("/naver-complete")
-    suspend fun getCompletedNaverWebtoons() {
-        return webtoonService.crawlerCompletedNAVER()
-    }
-
-    @PostMapping("/kakao")
-    suspend fun getKakaoWebtoons() {
-        return webtoonService.crawlerKAKAO()
-    }
-
-    @PostMapping("/kakao-complete")
-    suspend fun getCompletedKakaoWebtoons() {
-        return webtoonService.crawlerCompletedKAKAO()
-    }
 }

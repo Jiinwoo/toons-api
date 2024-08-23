@@ -71,6 +71,6 @@ CREATE TABLE `tb_post_like` (
     FOREIGN KEY (`post_id`) REFERENCES tb_post(`id`) ON DELETE CASCADE
 );
 
-CREATE INDEX idx_post_likes_post_id ON post_likes(`post_id`);
-CREATE INDEX idx_post_likes_member_id ON post_likes(`member_id`);
+CREATE INDEX idx_post_likes_post_id ON `tb_post_like`(`post_id`);
+CREATE INDEX idx_post_likes_member_id ON `tb_post_like`(`member_id`);
 
