@@ -44,6 +44,8 @@ class SecurityConfig(
                 authorizeRequests
                     .pathMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                     .pathMatchers("/api/webtoons/**").permitAll()
+                    .pathMatchers("/api/subscribe").permitAll()
+                    .pathMatchers("/api/unsubscribe").permitAll()
                     .pathMatchers("/api/home/**").permitAll()
                     .pathMatchers("/api/auth/**").permitAll()
                     .anyExchange().authenticated()

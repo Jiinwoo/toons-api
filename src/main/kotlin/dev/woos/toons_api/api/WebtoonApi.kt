@@ -23,4 +23,9 @@ class WebtoonApi(
     ): Page<WebtoonDto> {
         return webtoonService.findAllWithFilters(pageable, title, days, platforms)
     }
+
+    @PostMapping("/email")
+    suspend fun sendEmail() {
+        return webtoonService.sendEndedWebtoonAlert()
+    }
 }

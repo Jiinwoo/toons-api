@@ -12,4 +12,14 @@ class Member(
     val provider: AuthProvider,
     @Column
     val providerId: String,
-) : BaseEntity()
+) : BaseEntity() {
+    fun unsubscribe(): Member{
+        subscribe = false
+        return this
+    }
+
+    @Column
+    var verifiedEmail: String? = null
+    @Column
+    var subscribe = false
+}

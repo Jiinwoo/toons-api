@@ -25,7 +25,6 @@ class GoogleTokenVerifier(
 
     fun verify(token: String): GoogleIdToken.Payload? {
         val idToken = verifier.verify(token)
-        logger.info { "idToken: ${idToken.payload}" }
 
         return idToken?.payload
     }

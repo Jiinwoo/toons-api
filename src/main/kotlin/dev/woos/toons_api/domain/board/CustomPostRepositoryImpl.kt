@@ -14,7 +14,7 @@ class CustomPostRepositoryImpl(
 ) : CustomPostRepository {
     override suspend fun findAllByBoardIdWithMemberAndWebtoonAndDeletedAtIsNull(size: Int, offset: Long, boardId: Long): Flow<Post> {
         val selectSql = """
-            SELECT p.id, p.title, p.content, p.created_at, p.updated_at, p.board_id, p.member_id, p.tag, m.name, m.provider, m.provider_id
+            SELECT p.id, p.title, p.content, p.created_at, p.updated_at, p.board_id, p.member_id, p.tag, m.name, m.provider, m.provider_id, m.verified_email, m.subscribe
             FROM tb_post p
             INNER JOIN tb_member m ON p.member_id = m.id
             WHERE p.board_id = :boardId AND p.deleted_at IS NULL
@@ -40,7 +40,10 @@ class CustomPostRepositoryImpl(
                         name = row["name"] as String,
                         provider = AuthProvider.valueOf(row["provider"] as String),
                         providerId = row["provider_id"] as String,
-                    )
+                    ).apply {
+                        verifiedEmail = row["verified_email"] as String?
+                        subscribe = row["subscribe"] as Boolean
+                    }
                 }
             }
             .flow()

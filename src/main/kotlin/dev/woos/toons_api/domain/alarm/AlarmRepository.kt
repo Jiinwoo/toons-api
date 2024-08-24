@@ -11,6 +11,7 @@ data class WebtoonAlarmCount(
 
 interface AlarmRepository: CoroutineCrudRepository<Alarm, Long> {
     suspend fun findAllByMemberId(memberId: Long): Flow<Alarm>
+    suspend fun findAllByWebtoonIdInAndStatusIs(webtoonId: List<Long>, status: AlarmStatus): Flow<Alarm>
     suspend fun deleteByIdAndMemberId(id: Long, memberId: Long)
 
     @Query("""

@@ -17,7 +17,14 @@ class Alarm(
     @Column
     var sendAt: LocalDateTime? = null
 
-    fun send() {
+    fun send(): Alarm{
         this.status = AlarmStatus.SENT
+        this.sendAt = LocalDateTime.now()
+        return this
+    }
+
+    fun sendFail(): Alarm {
+        this.status = AlarmStatus.FAILURE
+        return this
     }
 }
