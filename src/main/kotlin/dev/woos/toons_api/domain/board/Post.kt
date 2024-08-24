@@ -2,8 +2,6 @@ package dev.woos.toons_api.domain.board
 
 import dev.woos.toons_api.domain.common.BaseEntity
 import dev.woos.toons_api.domain.member.Member
-import dev.woos.toons_api.domain.webtoon.Webtoon
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.data.annotation.Transient
 import org.springframework.data.relational.core.mapping.Column
 import org.springframework.data.relational.core.mapping.Table

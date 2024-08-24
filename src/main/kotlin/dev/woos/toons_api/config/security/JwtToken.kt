@@ -8,7 +8,7 @@ import java.util.*
 class JwtToken(
     private val user: UserDetails,
     val expiration: Date,
-): AbstractAuthenticationToken(emptyList()) {
+) : AbstractAuthenticationToken(emptyList()) {
     fun withAuthenticated(isAuthenticated: Boolean): Authentication {
         val cloned = JwtToken(user, expiration)
         cloned.isAuthenticated = isAuthenticated

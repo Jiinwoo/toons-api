@@ -5,9 +5,7 @@ import dev.woos.toons_api.domain.member.Member
 import dev.woos.toons_api.domain.member.MemberRepository
 import dev.woos.toons_api.infra.EmailService
 import dev.woos.toons_api.utils.TokenUtil
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.withContext
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -17,12 +15,12 @@ class MemberService(
     private val memberRepository: MemberRepository,
     private val emailService: EmailService,
     private val tokenUtil: TokenUtil,
-){
+) {
     suspend fun findMemberOrCreate(
         provider: AuthProvider,
         providerId: String,
         name: String,
-    ): Member{
+    ): Member {
         return memberRepository.findByProviderAndProviderId(provider, providerId)
             ?: memberRepository.save(
                 Member(

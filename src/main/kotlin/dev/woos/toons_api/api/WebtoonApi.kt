@@ -1,7 +1,6 @@
 package dev.woos.toons_api.api
 
 import dev.woos.toons_api.api.dto.WebtoonDto
-import dev.woos.toons_api.domain.webtoon.WebtoonRepository
 import dev.woos.toons_api.usecase.WebtoonService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

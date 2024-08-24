@@ -2,15 +2,8 @@ package dev.woos.toons_api.config
 
 import dev.woos.toons_api.config.quartz.CrawlerJob
 import org.quartz.*
-import org.springframework.boot.autoconfigure.flyway.FlywayProperties
-import org.springframework.boot.autoconfigure.quartz.QuartzDataSource
-import org.springframework.boot.autoconfigure.quartz.QuartzProperties
-import org.springframework.boot.autoconfigure.r2dbc.R2dbcProperties
-import org.springframework.boot.context.properties.EnableConfigurationProperties
-import org.springframework.boot.jdbc.DataSourceBuilder
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import javax.sql.DataSource
 
 @Configuration
 class QuartzConfig {

@@ -2,7 +2,6 @@ package dev.woos.toons_api.infra
 
 import jakarta.mail.internet.MimeMessage
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper

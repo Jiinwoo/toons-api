@@ -14,10 +14,11 @@ class Alarm(
 ) : BaseEntity() {
     @Column
     var status = AlarmStatus.NOT_SENT
+
     @Column
     var sendAt: LocalDateTime? = null
 
-    fun send(): Alarm{
+    fun send(): Alarm {
         this.status = AlarmStatus.SENT
         this.sendAt = LocalDateTime.now()
         return this

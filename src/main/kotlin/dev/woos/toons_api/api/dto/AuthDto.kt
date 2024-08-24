@@ -1,14 +1,14 @@
 package dev.woos.toons_api.api.dto
 
-data class GoogleLoginDto (
+data class GoogleLoginDto(
     val idToken: String,
 )
 
-data class KakaoLoginDto (
+data class KakaoLoginDto(
     val idToken: String,
     val nickname: String
 )
 
-data class LoginResDto (
+data class LoginResDto(
     val token: String
 )

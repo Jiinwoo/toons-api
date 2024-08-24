@@ -12,7 +12,7 @@ import java.security.interfaces.RSAPublicKey
 import java.util.concurrent.TimeUnit
 
 @Component
-class KakaoTokenVerifier{
+class KakaoTokenVerifier {
 
     private val logger = KotlinLogging.logger {}
 
@@ -32,7 +32,6 @@ class KakaoTokenVerifier{
 
         return verifier.verify(idToken)
     }
-
 
 
 }

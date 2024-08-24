@@ -2,7 +2,6 @@ package dev.woos.toons_api.domain.webtoon
 
 import kotlinx.coroutines.flow.Flow
 import org.springframework.data.domain.Pageable
-import reactor.core.publisher.Flux
 
 interface CustomWebtoonRepository {
     suspend fun findAllWithFilters(

@@ -5,14 +5,16 @@ import dev.woos.toons_api.domain.member.Member
 import kotlinx.coroutines.flow.Flow
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate
 import org.springframework.r2dbc.core.flow
-import java.time.Instant
 import java.time.LocalDateTime
-import java.time.ZoneId
 
 class CustomPostRepositoryImpl(
     private val template: R2dbcEntityTemplate
 ) : CustomPostRepository {
-    override suspend fun findAllByBoardIdWithMemberAndWebtoonAndDeletedAtIsNull(size: Int, offset: Long, boardId: Long): Flow<Post> {
+    override suspend fun findAllByBoardIdWithMemberAndWebtoonAndDeletedAtIsNull(
+        size: Int,
+        offset: Long,
+        boardId: Long
+    ): Flow<Post> {
         val selectSql = """
             SELECT p.id, p.title, p.content, p.created_at, p.updated_at, p.board_id, p.member_id, p.tag, m.name, m.provider, m.provider_id, m.verified_email, m.subscribe
             FROM tb_post p

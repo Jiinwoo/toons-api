@@ -13,13 +13,14 @@ class Member(
     @Column
     val providerId: String,
 ) : BaseEntity() {
-    fun unsubscribe(): Member{
+    fun unsubscribe(): Member {
         subscribe = false
         return this
     }
 
     @Column
     var verifiedEmail: String? = null
+
     @Column
     var subscribe = false
 }

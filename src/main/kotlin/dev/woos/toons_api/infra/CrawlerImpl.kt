@@ -1,8 +1,8 @@
 package dev.woos.toons_api.infra
 
 import dev.woos.toons_api.domain.common.Platform
-import dev.woos.toons_api.domain.webtoon.WebtoonCrawler
 import dev.woos.toons_api.domain.webtoon.Webtoon
+import dev.woos.toons_api.domain.webtoon.WebtoonCrawler
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.awaitBody

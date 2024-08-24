@@ -16,7 +16,6 @@ import org.springframework.web.reactive.config.EnableWebFlux
 import org.springframework.web.reactive.config.ViewResolverRegistry
 import org.springframework.web.reactive.config.WebFluxConfigurer
 import org.springframework.web.reactive.result.method.annotation.ArgumentResolverConfigurer
-import org.thymeleaf.spring6.ISpringWebFluxTemplateEngine
 import org.thymeleaf.spring6.SpringWebFluxTemplateEngine
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver
 import org.thymeleaf.spring6.view.reactive.ThymeleafReactiveViewResolver

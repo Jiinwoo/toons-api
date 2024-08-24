@@ -13,7 +13,7 @@ class GoogleTokenVerifier(
     @Value("\${google.client_id}")
     private val clientId: String,
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     private val httpTransport = GoogleNetHttpTransport.newTrustedTransport()
     private val jsonFactory = GsonFactory.getDefaultInstance()

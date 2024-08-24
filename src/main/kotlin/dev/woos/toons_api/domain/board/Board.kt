@@ -10,5 +10,5 @@ class Board(
     val contentType: ContentType,
     @Column
     val contentId: Long?,
-): BaseEntity() {
+) : BaseEntity() {
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,14 +14,16 @@
             height: 100vh;
             margin: 0;
         }
+
         .confirmation-container {
             max-width: 500px;
             padding: 30px;
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+
         .countdown {
             font-size: 1.2em;
             font-weight: bold;
@@ -30,28 +32,28 @@
     </style>
 </head>
 <body>
-    <div class="confirmation-container">
-        <h1 class="mb-4">구독 확인</h1>
-        <p class="mb-3" th:text="${message}">구독이 확인되었습니다.</p>
-        <p class="mb-4">이 창은 <span id="countdown" class="countdown">3</span>초 후에 자동으로 닫힙니다.</p>
-        <button class="btn btn-primary" onclick="window.close()">지금 닫기</button>
-    </div>
+<div class="confirmation-container">
+    <h1 class="mb-4">구독 확인</h1>
+    <p class="mb-3" th:text="${message}">구독이 확인되었습니다.</p>
+    <p class="mb-4">이 창은 <span id="countdown" class="countdown">3</span>초 후에 자동으로 닫힙니다.</p>
+    <button class="btn btn-primary" onclick="window.close()">지금 닫기</button>
+</div>
 
-    <script th:inline="javascript">
-        let timeLeft = 3;
-        const countdownElement = document.getElementById('countdown');
+<script th:inline="javascript">
+    let timeLeft = 3;
+    const countdownElement = document.getElementById('countdown');
 
-        function updateCountdown() {
-            countdownElement.textContent = timeLeft;
-            if (timeLeft > 0) {
-                timeLeft--;
-                setTimeout(updateCountdown, 1000);
-            } else {
-                window.close();
-            }
+    function updateCountdown() {
+        countdownElement.textContent = timeLeft;
+        if (timeLeft > 0) {
+            timeLeft--;
+            setTimeout(updateCountdown, 1000);
+        } else {
+            window.close();
         }
+    }
 
-        updateCountdown();
-    </script>
+    updateCountdown();
+</script>
 </body>
 </html>
