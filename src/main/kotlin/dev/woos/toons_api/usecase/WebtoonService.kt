@@ -130,7 +130,7 @@ class WebtoonService(
                                 title = it.title
                             )
                         },
-                        "https://toons.woos.dev/unsubscribe/${member.id}"
+                        member.id
                     )
                     result to alarms
                 }

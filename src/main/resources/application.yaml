@@ -1,3 +1,6 @@
+server:
+  url: ${SERVER_URL}
+
 spring:
   mail:
     host: ${SMTP_HOST}
@@ -46,8 +49,10 @@ jwt:
 cors:
   allowed-origins: ${CORS_ALLOWED_ORIGINS}
 
+
 logging:
   level:
     org:
       springframework:
         r2dbc: ${LOG_LEVEL_R2DBC:INFO}
+

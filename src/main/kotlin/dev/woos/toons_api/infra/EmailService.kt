@@ -3,6 +3,7 @@ package dev.woos.toons_api.infra
 import jakarta.mail.internet.MimeMessage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.mail.javamail.JavaMailSender
 import org.springframework.mail.javamail.MimeMessageHelper
 import org.springframework.stereotype.Component
@@ -14,7 +15,8 @@ import org.thymeleaf.context.Context
 @Component
 class EmailService(
     private val mailSender: JavaMailSender,
-    private val templateEngine: TemplateEngine
+    private val templateEngine: TemplateEngine,
+    @Value("\${server.url}") private val serverUrl: String
 ) {
     data class WebtoonEmailDto(
         val link: String,
@@ -28,7 +30,7 @@ class EmailService(
         to: String,
         username: String,
         webtoons: List<WebtoonEmailDto>,
-        unsubscribeLink: String
+        memberId: Long,
     ): Result<Unit> = runCatching {
         val message: MimeMessage = mailSender.createMimeMessage()
         val helper = MimeMessageHelper(message, true, "UTF-8")
@@ -40,7 +42,7 @@ class EmailService(
         val context = Context().apply {
             setVariable("userName", username)
             setVariable("webtoons", webtoons)
-            setVariable("unsubscribeLink", unsubscribeLink)
+            setVariable("unsubscribeLink", "${serverUrl}/unsubscribe/${memberId}")
         }
 
         val htmlContent = withContext(Dispatchers.Default) {
@@ -64,7 +66,7 @@ class EmailService(
 
         val context = Context().apply {
             setVariable("userName", username)
-            setVariable("verificationLink", "http://localhost:8080/api/subscribe?token=$token&email=$email")
+            setVariable("verificationLink", "${serverUrl}/api/subscribe?token=$token&email=$email")
         }
 
         val htmlContent = withContext(Dispatchers.Default) {
