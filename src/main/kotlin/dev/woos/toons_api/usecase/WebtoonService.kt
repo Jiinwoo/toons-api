@@ -41,7 +41,7 @@ class WebtoonService(
         val crawlerResult = webtoonCrawler.getNaverCompletedWebtoonTitles().getOrThrow()
         logger.info { "crawlerResult : ${crawlerResult}" }
         val platformIds = crawlerResult.map { it.first }
-        webtoonRepository.findAllByIdIn(platformIds).map {
+        webtoonRepository.findAllByPlatformIdIn(platformIds).map {
             it.isCompleted()
             it
         }.also { webtoonRepository.saveAll(it).collect() }
@@ -59,7 +59,7 @@ class WebtoonService(
         val crawlerResult = webtoonCrawler.getKakaoCompletedWebtoonTitles().getOrThrow()
         logger.info { "crawlerResult : ${crawlerResult}" }
         val platformIds = crawlerResult.map { it.first }
-        webtoonRepository.findAllByIdIn(platformIds).map {
+        webtoonRepository.findAllByPlatformIdIn(platformIds).map {
             it.isCompleted()
             it
         }.also { webtoonRepository.saveAll(it).collect() }

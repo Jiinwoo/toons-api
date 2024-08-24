@@ -5,5 +5,6 @@ import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
 interface WebtoonRepository : CoroutineCrudRepository<Webtoon, Long>, CustomWebtoonRepository {
     suspend fun findAllByIdIn(ids: List<Long>): Flow<Webtoon>
+    suspend fun findAllByPlatformIdIn(platformIds: List<Long>): Flow<Webtoon>
     suspend fun findTop10ByCompletedTrueOrderByUpdatedAtDesc(): Flow<Webtoon>
 }
