@@ -44,7 +44,7 @@ class WebtoonService(
         webtoonRepository.findAllByIdIn(platformIds).map {
             it.isCompleted()
             it
-        }.also { webtoonRepository.saveAll(it) }
+        }.also { webtoonRepository.saveAll(it).collect() }
     }
 
     suspend fun crawlerKAKAO() = coroutineScope {
@@ -62,7 +62,7 @@ class WebtoonService(
         webtoonRepository.findAllByIdIn(platformIds).map {
             it.isCompleted()
             it
-        }.also { webtoonRepository.saveAll(it) }
+        }.also { webtoonRepository.saveAll(it).collect() }
     }
 
     @Transactional(readOnly = true)
