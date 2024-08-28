@@ -7,5 +7,5 @@ import java.time.LocalDateTime
 interface PostRepository : CoroutineCrudRepository<Post, Long>, CustomPostRepository {
     suspend fun findByIdAndDeletedAtIsNull(id: Long): Post?
     suspend fun countByBoardIdAndDeletedAtIsNull(boardId: Long): Long
-    suspend fun findTop5ByCreatedAtAfterOrderByLikeCountDesc(from: LocalDateTime): Flow<Post>
+    suspend fun findTop5ByCreatedAtAfterAndDeletedAtIsNullOrderByLikeCountDesc(from: LocalDateTime): Flow<Post>
 }

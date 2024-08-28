@@ -43,6 +43,7 @@ class SecurityConfig(
                 authorizeRequests
                     .pathMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                     .pathMatchers("/api/webtoons/**").permitAll()
+                    .pathMatchers("/api/web-novels/**").permitAll()
                     .pathMatchers("/api/subscribe").permitAll()
                     .pathMatchers("/api/unsubscribe").permitAll()
                     .pathMatchers("/api/home/**").permitAll()

@@ -23,7 +23,7 @@ class QueryService(
     ) {
     suspend fun queryHome(): HomeDto = coroutineScope {
         val postsDeferred =
-            async { postRepository.findTop5ByCreatedAtAfterOrderByLikeCountDesc(LocalDateTime.now().minusWeeks(1)) }
+            async { postRepository.findTop5ByCreatedAtAfterAndDeletedAtIsNullOrderByLikeCountDesc(LocalDateTime.now().minusWeeks(1)) }
         val completedWebtoonsDeferred = async { webtoonRepository.findTop10ByCompletedTrueOrderByUpdatedAtDesc() }
 
         val alarmsDeferred = async { alarmRepository.findTop5MostAlarmRegisteredWebtoons() }

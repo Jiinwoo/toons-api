@@ -7,6 +7,7 @@ import dev.woos.toons_api.domain.board.*
 import dev.woos.toons_api.domain.member.MemberRepository
 import dev.woos.toons_api.domain.webtoon.WebtoonRepository
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.toList
