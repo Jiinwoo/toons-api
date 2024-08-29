@@ -3,6 +3,7 @@ package dev.woos.toons_api.usecase
 import dev.woos.toons_api.api.HomeDto
 import dev.woos.toons_api.api.dto.WebtoonDto
 import dev.woos.toons_api.domain.alarm.AlarmRepository
+import dev.woos.toons_api.domain.board.PostLikeRepository
 import dev.woos.toons_api.domain.board.PostRepository
 import dev.woos.toons_api.domain.webtoon.WebtoonRepository
 import kotlinx.coroutines.async
@@ -19,27 +20,34 @@ class QueryService(
     private val webtoonRepository: WebtoonRepository,
     private val postRepository: PostRepository,
     private val alarmRepository: AlarmRepository,
+    private val postLikeRepository: PostLikeRepository,
 
     ) {
     suspend fun queryHome(): HomeDto = coroutineScope {
         val postsDeferred =
-            async { postRepository.findTop5ByCreatedAtAfterAndDeletedAtIsNullOrderByLikeCountDesc(LocalDateTime.now().minusWeeks(1)) }
+            async {
+                postRepository.findTop5ByCreatedAtAfterAndDeletedAtIsNullOrderByLikeCountDesc(
+                    LocalDateTime.now().minusWeeks(1)
+                )
+            }
         val completedWebtoonsDeferred = async { webtoonRepository.findTop10ByCompletedTrueOrderByUpdatedAtDesc() }
-
         val alarmsDeferred = async { alarmRepository.findTop5MostAlarmRegisteredWebtoons() }
 
-        val hostPosts = postsDeferred.await()
+        val hotPosts = postsDeferred.await()
         val completedWebtoons = completedWebtoonsDeferred.await()
         val topAlarmWebtoonsIds = alarmsDeferred.await().map { it.webtoonId }
+
         val topAlarmWebtoons = webtoonRepository.findAllById(topAlarmWebtoonsIds)
-
-
+        val postLikeCounts = postLikeRepository.findAllById(
+            hotPosts.map { it.id }
+        ).toList().groupBy { it.postId }.mapValues { it.value.size }
 
         HomeDto(
-            hotPosts = hostPosts.map {
-                HomeDto.HostPostDto(
+            hotPosts = hotPosts.map {
+                HomeDto.HotPostDto(
                     id = it.id,
                     title = it.title,
+                    likeCount = postLikeCounts[it.id] ?: 0,
                 )
             }.toList(),
             completedWebtoons = completedWebtoons.map {

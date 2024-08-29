@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 data class HomeDto(
-    val hotPosts: List<HostPostDto>,
+    val hotPosts: List<HotPostDto>,
     val completedWebtoons: List<WebtoonDto>,
     val topAlarmWebtoons: List<WebtoonDto>
 ) {
-    data class HostPostDto(
+    data class HotPostDto(
         val id: Long,
         val title: String,
+        val likeCount: Int,
     )
 }
 
