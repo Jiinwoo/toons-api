@@ -27,11 +27,11 @@ class QueryService(
         val postsDeferred =
             async {
                 postRepository.findTop5ByCreatedAtAfterAndDeletedAtIsNullOrderByLikeCountDesc(
-                    LocalDateTime.now().minusWeeks(1)
+                    LocalDateTime.now().minusMonths(1)
                 )
             }
         val completedWebtoonsDeferred = async { webtoonRepository.findTop10ByCompletedTrueOrderByUpdatedAtDesc() }
-        val alarmsDeferred = async { alarmRepository.findTop5MostAlarmRegisteredWebtoons() }
+        val alarmsDeferred = async { alarmRepository.findTop10MostAlarmRegisteredWebtoons() }
 
         val hotPosts = postsDeferred.await()
         val completedWebtoons = completedWebtoonsDeferred.await()

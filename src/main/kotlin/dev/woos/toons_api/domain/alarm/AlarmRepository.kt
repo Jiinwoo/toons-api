@@ -20,8 +20,8 @@ interface AlarmRepository : CoroutineCrudRepository<Alarm, Long> {
         FROM tb_alarm a 
         GROUP BY a.webtoon_id 
         ORDER BY alarm_count DESC 
-        LIMIT 5
+        LIMIT 10
     """
     )
-    fun findTop5MostAlarmRegisteredWebtoons(): Flow<WebtoonAlarmCount>
+    fun findTop10MostAlarmRegisteredWebtoons(): Flow<WebtoonAlarmCount>
 }
