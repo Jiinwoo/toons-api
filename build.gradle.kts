@@ -49,6 +49,9 @@ dependencies {
     // Jsoup
     implementation("org.jsoup:jsoup:1.18.1")
 
+    // Swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0")
+
     // flyway
     implementation("org.flywaydb:flyway-mysql")
     runtimeOnly("org.mariadb.jdbc:mariadb-java-client")

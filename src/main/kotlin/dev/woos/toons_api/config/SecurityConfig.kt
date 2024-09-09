@@ -41,6 +41,7 @@ class SecurityConfig(
             .securityContextRepository(NoOpServerSecurityContextRepository.getInstance()) //session STATELESS
             .authorizeExchange { authorizeRequests ->
                 authorizeRequests
+                    .pathMatchers("/swagger-ui.html", "/webjars/**", "/v3/api-docs/**", "/swagger-resources/**").permitAll()
                     .pathMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
                     .pathMatchers("/api/webtoons/**").permitAll()
                     .pathMatchers("/api/web-novels/**").permitAll()
