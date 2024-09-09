@@ -1,10 +1,12 @@
 package dev.woos.toons_api.infra
 
 import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import org.jsoup.Jsoup
 import org.springframework.stereotype.Component
-import reactor.core.scheduler.Schedulers
 
 enum class NaverWeek {
     MON, TUE, WED, THU, FRI, SAT, SUN
@@ -14,7 +16,7 @@ enum class NaverWeek {
 class JsoupCrawlerImpl(
 
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 //    private val weekDays = []
 
     suspend fun getNaverWebNovelList(): Result<List<String>> = runCatching {

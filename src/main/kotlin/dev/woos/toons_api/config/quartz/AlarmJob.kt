@@ -2,7 +2,6 @@ package dev.woos.toons_api.config.quartz
 
 import dev.woos.toons_api.usecase.WebtoonService
 import io.github.oshai.kotlinlogging.KotlinLogging
-import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import org.quartz.JobExecutionContext
 import org.springframework.scheduling.quartz.QuartzJobBean

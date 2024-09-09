@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api/web-novels")
 class WebNovelApi(
     private val jsoupCrawlerImpl: JsoupCrawlerImpl,
-){
+) {
 
     @PostMapping
     suspend fun test() {
