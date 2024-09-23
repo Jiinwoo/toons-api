@@ -49,6 +49,10 @@ dependencies {
     // Jsoup
     implementation("org.jsoup:jsoup:1.18.1")
 
+    // AWS Dependency
+    implementation(platform("io.awspring.cloud:spring-cloud-aws-dependencies:3.2.0"))
+    implementation("io.awspring.cloud:spring-cloud-aws-starter-s3")
+
     // Swagger
     implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.3.0")
 

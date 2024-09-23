@@ -18,6 +18,14 @@ springdoc:
     - /api/**
 
 spring:
+  cloud:
+    aws:
+      credentials:
+        access-key: ${AWS_ACCESS_KEY}
+        secret-key: ${AWS_SECRET_KEY}
+      region:
+        static: ap-northeast-2
+
   mail:
     host: ${SMTP_HOST}
     port: 587
@@ -53,6 +61,10 @@ spring:
       org.quartz.threadPool.threadCount: 3
     jdbc:
       initialize-schema: never
+
+aws:
+  s3:
+    bucket: ${AWS_S3_BUCKET}
 
 
 google:
